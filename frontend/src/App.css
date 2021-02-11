@@ -25,9 +25,8 @@ body::after {
   content: "";
 
   /* background: url(./Images/images\ \(3\).jpeg); */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color:rgba(94, 198, 233, 0.418);
+
 
   opacity: 0.1;
   top: 0;

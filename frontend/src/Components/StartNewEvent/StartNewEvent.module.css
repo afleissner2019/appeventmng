@@ -8,6 +8,22 @@
   max-width: 650px;
 }
 
+.eventHead {
+  padding: 5px;
+  margin: 10px 30px;
+  border-radius: 5px;
+}
+
+.eventNote {
+  font-size: 18px;
+  width: 99%;
+  float: left;
+  padding: 5px;
+  background-color: rgba(173, 216, 230, 0.582);
+  margin: 10px 30px;
+  border-radius: 5px;
+}
+
 .inputContainer {
   display: flex;
   justify-content: space-between;
@@ -15,10 +31,8 @@
   align-items: center;
   /* border: red solid 2px; */
   width: 650px;
-  margin: 5px;
+  margin: 0px;
 }
-
-
 
 .radioContainer {
   /* border: red solid 2px; */
@@ -41,14 +55,15 @@
 
 .inputContainer input {
   width: 80%;
-  height: 40px;
+  height: 35px;
   margin: 5px;
+  font-size: 15px;
 }
 
 .inputContainer label {
   width: 20%;
   height: 40px;
-  font-size: 19px;
+  font-size: 18px;
   padding: 10px 5px;
 }
 
@@ -72,6 +87,7 @@
   border-radius: 10px;
   border: none;
   margin: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .saveBtn:hover {

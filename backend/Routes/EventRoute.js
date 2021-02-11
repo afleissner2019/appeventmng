@@ -60,11 +60,11 @@ router.post("/startNewEvent", authenticate, async (request, response) => {
         const file = request.files.file;
         const newPath = `${Date.now()}-${userId}-${file.name}`;
 
-        file.mv(`${__dirname}/../../frontend/public/uploads/${newPath}`, async(err) => {
-            if(err) {
+        file.mv(`${__dirname}/../../frontend/public/uploads/${newPath}`, async (err) => {
+            if (err) {
                 console.log(err)
                 return response.status(500).send(err)
-             }
+            }
             const event = new Events({
 
                 event_name: name.trim(),
@@ -79,8 +79,8 @@ router.post("/startNewEvent", authenticate, async (request, response) => {
                 category_id: category,
             });
 
-           await event.save();
-            response.json({msg:"you have created your Event", event});
+            await event.save();
+            response.json({ msg: "you have created your Event", event });
 
         });
 

@@ -39,16 +39,17 @@ function HomeDefault() {
                     let category = event.category_id.map((category) => <>{category.name}</>);
                     let eventLink = `/viewOneEvent/${event._id}`
                     const date = moment(event.dateEventstarted).format('MMMM Do YYYY, hh:mm a')
-                    //    const photoPath = (event.event_photo === 'https://onlinecourses.one/wp-content/uploads/2019/08/best-object-oriented-programming-oop-course-class-certification-training-online-768x512.jpg' ? event.event_photo : `/uploads/${event.event_photo}` )
+
                     return (
-                          
+
                         <div className={styles.events_container}>
                             <Link to={eventLink} >
                                 <img className={styles.events_bg} src={event.event_photo} alt="" />
                             </Link>
                             <div className={styles.events_text}>
                                 <p className={styles.events_date}>{date}</p>
-                                <p className={styles.events_name_category}>{event.event_name},  {category}</p>
+                                <p className={styles.events_name_category}>{event.event_name},</p>
+                                <p className={styles.events_name_category}>Category: {category}</p>
                             </div>
                         </div>
 

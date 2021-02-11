@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { ModalBoxContext } from '../ModalBox/ModalBox'
 import axios from "axios";
 import { UserStateContext } from "../../App";
+import { NotificationsContext } from '../Notifications/Notifications';
 
 
 export default function StartNewEvent(e) {
@@ -13,6 +14,7 @@ export default function StartNewEvent(e) {
     const [file, setFile] = useState('');
     const [fileName, setFileName] = useState('add a photo');
     const { addModalBox } = useContext(ModalBoxContext)
+    const { addNotificationToQueue } = useContext(NotificationsContext);
 
 
     const history = useHistory();
@@ -59,15 +61,22 @@ export default function StartNewEvent(e) {
         e.preventDefault();
 
         try {
-            if (name === '' || description === '') {
-                console.log('need to fill all ');
-            }
-            else if (name === '') {
+            if (name === '' || description === '' || category_id === '' ||
+                date === '' || time === '' || location === '' ||
+                eventtype === '' || language === '' || member === '') {
+                addNotificationToQueue("Please fill out the required inputs")
 
             }
             else {
 
                 await sendEvent();
+
+                addModalBox(
+                    <>
+                        <p>The Event have been Created successfully.</p>
+                        <p>You will redirect to the Homepage.</p>
+                    </>
+                )
 
                 setTimeout(() => {
                     history.push("/")
@@ -78,12 +87,6 @@ export default function StartNewEvent(e) {
         } catch (error) {
             console.log('server error ');
         }
-
-
-
-
-
-
 
     }
 
@@ -118,7 +121,6 @@ export default function StartNewEvent(e) {
     };
 
 
-
     useEffect(() => {
         getCategory()
 
@@ -148,29 +150,28 @@ export default function StartNewEvent(e) {
     return (
         <div className={styles.newEventForm}>
 
-            <h1 className={styles.eventText}>
-                Create New Event
-            </h1>
+            <h1 className={styles.eventHead}>Create New Event</h1>
+            <p className={styles.eventNote}>* All inputs are required </p>
 
             <form onSubmit={handleSubmit} >
 
                 <div className={styles.inputContainer}>
-                    <label htmlFor="name">Event Name</label>
+                    <label htmlFor="name">Event Name *</label>
                     <input onChange={changeHandler}
                         type="text" name="name"
                         placeholder="Event Name" />
                 </div>
 
                 <div className={styles.inputContainer}>
-                    <label htmlFor="photo">Event Photo</label>
+                    <label htmlFor="photo">Event Photo *</label>
                     <input className={styles.uploadPhoto} onChange={photoHandler}
                         type="file" name="photo" />
-                    <div>fileName</div>
+                    {/* <div>fileName</div> */}
                 </div>
 
 
                 <div className={styles.inputContainer}>
-                    <label htmlFor="category_id">Category</label>
+                    <label htmlFor="category_id">Category *</label>
                     <select onChange={changeHandler}
                         className={styles.catDropDown} name="category_id" >
                         <option>please Select category</option>
@@ -192,7 +193,7 @@ export default function StartNewEvent(e) {
                 </div>
 
                 <div className={styles.inputContainer}>
-                    <label htmlFor="location">Location</label>
+                    <label htmlFor="location">Location *</label>
                     <input onChange={changeHandler}
                         type="text" name="location"
                         placeholder="Location" />
@@ -208,7 +209,7 @@ export default function StartNewEvent(e) {
 
                 <div className={styles.inputContainer}>
 
-                    <label htmlFor="member">Members</label>
+                    <label htmlFor="member">Members *</label>
                     <input onChange={changeHandler}
                         type="number" name="member"
                         placeholder="member" />
@@ -216,7 +217,7 @@ export default function StartNewEvent(e) {
 
 
                 <div className={styles.inputContainer}>
-                    <label className={styles.eventType}>Event Type:</label>
+                    <label className={styles.eventType}>Event Type *</label>
                     <div className={styles.radioContainer}>
 
                         <div className={styles.radio}>
@@ -239,14 +240,14 @@ export default function StartNewEvent(e) {
 
 
                 <div className={styles.inputContainer}>
-                    <label htmlFor="dateEventstarted">Date</label>
+                    <label htmlFor="dateEventstarted">Date *</label>
                     <input onChange={changeHandler}
                         type="date" name="date"
                         placeholder="" />
                 </div>
 
                 <div className={styles.inputContainer}>
-                    <label htmlFor="dateEventstarted">Time</label>
+                    <label htmlFor="dateEventstarted">Time *</label>
                     <input onChange={changeHandler}
                         type="time" name="time"
                         placeholder="" />
@@ -254,14 +255,14 @@ export default function StartNewEvent(e) {
                 </div>
 
                 <div className={styles.inputContainer}>
-                    <label htmlFor="description">Description</label>
+                    <label htmlFor="description">Description *</label>
                     <textarea className={styles.description} onChange={changeHandler}
                         type="" name="description"
                         placeholder="Event Description" />
                 </div>
 
-                <input type="submit" value="Save Event"
-                    className={styles.saveBtn} />
+                <button type="submit" value=""
+                    className={styles.saveBtn}>Save Event</button>
 
             </form>
 
